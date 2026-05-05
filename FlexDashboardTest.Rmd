@@ -1,53 +1,60 @@
-"Cowichan River Water Quality Monitoring 2026"
+---
+title: "2026 Cowichan River Dashboard Test"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
 
-
+```{r setup, include=FALSE}
 library(flexdashboard)
 library(ggplot2)
 library(tidyverse)
 library(plotly)
+```
 
+Column {data-width=800}
+-----------------------------------------------------------------------
 
-### **Data provided by CVRD Environmental Services Division**
+### DO Skutz Fall 
 
-
-# cbo formatting PH Skutz fall data
-pHSkutzData <- read.csv("https://raw.githubusercontent.com/caitlynboconnor/2026CVRDWaterData/refs/heads/main/pH%20Skutz%202026-04-28%2015_28_21%20PDT.csv")
-pHSkutzData <- pHSkutzData[-c(1:50), -c(1,6:8)]
-pHSkutzData$Site <- "Skutz Falls - Remote (km 32)"
-pHSkutzData$DateTime <- as.POSIXct(pHSkutzData$DateTime, format = "%m/%d/%Y %H:%M") 
-
-# cbo couldn't get this line to work - long term this would be good to have in case file gets read in wrong
-#pHSkutzData <- pHSkutzData %>% mutate_at(vars(Temp, pH), as.numeric)
-
-# cbo check to make sure the data looks right
-head(pHSkutzData)
-
-# cbo PH Skutz ggplot basic
-pHSkutzPlot <- ggplot(data = pHSkutzData, aes(x=DateTime, y=pH)) +
-  geom_line(colour = "#298c8c") + geom_point(colour = "#298c8c") +
-  xlab("") + ylab("pH") + ggtitle("Skutz Falls") + theme_classic()
-
-ggplotly(pHSkutzPlot)
-
-
-# cbo formatting DO Skutz fall data
+```{r}
+# Formatting DO Skutz fall data
 DOSkutzData <- read.csv("https://raw.githubusercontent.com/caitlynboconnor/2026CVRDWaterData/refs/heads/main/DO%20Skutz%202026-04-28%2015_26_52%20PDT.csv")
 DOSkutzData <- DOSkutzData[-c(1),-c(1,6:9)]
 DOSkutzData$Site <- "Skutz Falls - Remote (km32)"
 DOSkutzData$Date.Time..PDT. <- as.POSIXct(DOSkutzData$Date.Time..PDT., format = "%m/%d/%Y %H:%M")
 
-# cbo check to make sure the data looks right
-head(DOSkutzData)
-
-# cbo DO Skutz ggplot  
+# Plotting DO Skutz ggplot  
 DOSkutzPlot <- ggplot(data = DOSkutzData, aes(x=Date.Time..PDT., y=Measured.DO....mg.L..W.DO.22225580.)) +
   geom_line(colour = "#800074") + geom_point(colour = "#800074") + 
   xlab("") + ylab("Measured DO") + ggtitle("Skutz Falls") + theme_classic()
 
 ggplotly(DOSkutzPlot)
+```
 
+-----------------------------------------------------------------------
 
+### PH Skutz Fall
 
+```{r}
+# Formatting PH Skutz fall data
+pHSkutzData <- read.csv("https://raw.githubusercontent.com/caitlynboconnor/2026CVRDWaterData/refs/heads/main/pH%20Skutz%202026-04-28%2015_28_21%20PDT.csv")
+pHSkutzData <- pHSkutzData[-c(1:50), -c(1,6:8)]
+pHSkutzData$Site <- "Skutz Falls - Remote (km 32)"
+pHSkutzData$DateTime <- as.POSIXct(pHSkutzData$DateTime, format = "%m/%d/%Y %H:%M") 
+
+# Plotting PH Skutz ggplot basic
+pHSkutzPlot <- ggplot(data = pHSkutzData, aes(x=DateTime, y=pH)) +
+  geom_line(colour = "#298c8c") + geom_point(colour = "#298c8c") +
+  xlab("") + ylab("pH") + ggtitle("Skutz Falls") + theme_classic()
+
+ggplotly(pHSkutzPlot)
+```
+
+### Chart C
+
+```{r}
 #Temperature Formatting Data using DO temps
 
 TempSkutzData <- read.csv("https://raw.githubusercontent.com/caitlynboconnor/2026CVRDWaterData/refs/heads/main/DO%20Skutz%202026-04-28%2015_26_52%20PDT.csv")
@@ -62,3 +69,6 @@ TempSkutzPlot <- ggplot(data = TempSkutzData, aes(x=Date.Time..PDT., y=Measured.
   xlab("") + ylab("Temperature") + ggtitle("Skutz Falls") + theme_classic()
 
 ggplotly(TempSkutzPlot)
+
+```
+
