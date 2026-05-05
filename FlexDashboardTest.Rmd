@@ -28,7 +28,10 @@ DOSkutzData$Date.Time..PDT. <- as.POSIXct(DOSkutzData$Date.Time..PDT., format = 
 # Plotting DO Skutz ggplot  
 DOSkutzPlot <- ggplot(data = DOSkutzData, aes(x=Date.Time..PDT., y=Measured.DO....mg.L..W.DO.22225580.)) +
   geom_line(colour = "#800074") + geom_point(colour = "#800074") + 
-  xlab("") + ylab("Measured DO") + ggtitle("Skutz Falls") + theme_classic()
+  scale_x_datetime(date_labels= "%e-%b", date_breaks="1 day")+ 
+  theme_classic() + 
+  theme(panel.grid.major.y = element_line(colour = "gray", size = 0.5, linetype = 2)) +
+  xlab("") + ylab("Measured DO") + ggtitle("Skutz Falls")
 
 ggplotly(DOSkutzPlot)
 ```
@@ -47,7 +50,10 @@ pHSkutzData$DateTime <- as.POSIXct(pHSkutzData$DateTime, format = "%m/%d/%Y %H:%
 # Plotting PH Skutz ggplot basic
 pHSkutzPlot <- ggplot(data = pHSkutzData, aes(x=DateTime, y=pH)) +
   geom_line(colour = "#298c8c") + geom_point(colour = "#298c8c") +
-  xlab("") + ylab("pH") + ggtitle("Skutz Falls") + theme_classic()
+  scale_x_datetime(date_labels= "%e-%b", date_breaks="1 day")+ 
+  theme_classic() + 
+  theme(panel.grid.major.y = element_line(colour = "gray", size = 0.5, linetype = 2)) +
+  xlab("") + ylab("pH") + ggtitle("Skutz Falls") 
 
 ggplotly(pHSkutzPlot)
 ```
@@ -65,10 +71,14 @@ TempSkutzData$Date.Time..PDT. <- as.POSIXct(TempSkutzData$Date.Time..PDT., forma
 #Temperature plotting
 
 TempSkutzPlot <- ggplot(data = TempSkutzData, aes(x=Date.Time..PDT., y=Measured.DO....mg.L..W.DO.22225580.)) +
-  geom_line(colour = "#f1a226") + geom_point(colour = "#f1a226") +
-  xlab("") + ylab("Temperature") + ggtitle("Skutz Falls") + theme_classic()
+  geom_line(colour = "#f1a226") + geom_point(colour = "#f1a226") + 
+  scale_x_datetime(date_labels= "%e-%b", date_breaks="1 day")+ 
+  theme_classic() + 
+  theme(panel.grid.major.y = element_line(colour = "gray", size = 0.5, linetype = 2)) +
+  xlab("") + ylab("Temperature") + ggtitle("Skutz Falls")
 
 ggplotly(TempSkutzPlot)
+
 
 ```
 
